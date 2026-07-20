@@ -202,7 +202,7 @@ def getFilesForDataset(dataset, site=None):
 
 def getJobParams(mode, task_conf):
     params = {}
-    if mode == 'NTP' or mode == 'L1IN' or mode == 'SIMDIGI':
+    if mode == 'NTP' or mode == 'L1IN' or mode == 'SIMDIGI' or 'NTP_TwoDatasets':
         input_files = []
         if not task_conf.crab:
             if hasattr(task_conf, 'input_directory'):
@@ -272,8 +272,11 @@ def getJobParams(mode, task_conf):
         params['TEMPL_REQUESTNAME'] = task_conf.task_name
         if hasattr(task_conf, 'input_dataset'):
             params['TEMPL_INPUTDATASET'] = task_conf.input_dataset
+        if hasattr(task_conf, 'second_input_dataset'):
+            params['TEMPL_SECONDINPUTDATASET'] = task_conf.second_input_dataset
         params['TEMPL_DATASETTAG'] = '{}_{}'.format(task_conf.task_name, task_conf.version)
-        params['TEMPL_CRABOUTDIR'] = task_conf.output_dir_base.split('/eos/cms')[1].replace('/cmst3/', '/group/cmst3/')
+        #params['TEMPL_CRABOUTDIR'] = task_conf.output_dir_base.split('/eos/cms')[1].replace('/cmst3/', '/group/cmst3/')
+        params['TEMPL_CRABOUTDIR'] = task_conf.output_dir_base
 
         def get_from_env(variable):
             if variable in os.environ:
@@ -410,13 +413,13 @@ def createTaskSetup(task_config, config_file):
         os.mkdir(task_config.task_dir+'/conf/')
         os.mkdir(task_config.task_dir+'/logs/')
 
-    if not os.path.exists(task_config.output_dir):
-        try:
-            os.makedirs(task_config.output_dir)
-        except:
-            print('   ERROR: output dir {} doesn\'t exist: please create it first!'.format(task_config.output_dir))
-            print("Unexpected error:", sys.exc_info()[0])
-            print(sys.exit(2))
+    # if not os.path.exists(task_config.output_dir):
+    #     try:
+    #         os.makedirs(task_config.output_dir)
+    #     except:
+    #         print('   ERROR: output dir {} doesn\'t exist: please create it first!'.format(task_config.output_dir))
+    #         print("Unexpected error:", sys.exc_info()[0])
+    #         print(sys.exit(2))
 
     # shutil.copy(task_config.cmssw_config, '{}/conf/input_cfg.py'.format(task_config.task_dir))
     

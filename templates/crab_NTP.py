@@ -6,6 +6,7 @@ config = config()
 
 config.General.requestName = 'TEMPL_REQUESTNAME'
 config.Data.inputDataset = 'TEMPL_INPUTDATASET'
+# config.Data.secondaryInputDataset = 'TEMPL_SECONDINPUTDATASET'
 
 config.General.workArea = 'TEMPL_TASKDIR'
 config.General.transferOutputs = True
@@ -13,8 +14,8 @@ config.General.transferLogs = False
 
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'TEMPL_TASKCONFDIR/input_cfg.py'
-config.JobType.maxMemoryMB = 8000
-config.JobType.numCores = 4
+config.JobType.maxMemoryMB = 3000
+config.JobType.numCores = 1
 
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'TEMPL_SPLITTINGMODE'
@@ -27,7 +28,10 @@ config.Data.outputDatasetTag = 'TEMPL_DATASETTAG'
 
 config.Data.partialDataset = True
 
-config.Site.storageSite = 'T2_CH_CERN'
+#config.Site.storageSite = 'T2_CH_CERN'
+config.Site.storageSite = 'T2_DE_DESY'
 config.JobType.allowUndistributedCMSSW = True
 
 config.Data.allowNonValidInputDataset = True
+
+config.Data.runRange = '398557-398558'
